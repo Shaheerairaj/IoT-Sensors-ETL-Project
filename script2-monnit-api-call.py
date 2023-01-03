@@ -3,6 +3,9 @@ import requests
 import datetime
 import logging
 
+logging.basicConfig(filename='script2-monnit-api-call.log', level=logging.INFO,
+format='%(asctime)s:%(levelname)s:%(message)s')
+
 
 
 sensor_list_URL = 'https://www.imonnit.com/json/SensorList'
@@ -13,7 +16,10 @@ headers = {
     'APISecretKey': 'rAOioqNQvnkmISoMDJ1FjjIvS282AYwz'
 }
 
+
+logging.info("Calling sensor list API")
 r = requests.post(sensor_list_URL, headers=headers, verify=False)
+logging.info(r.status_code)
 data = r.json()
 
 
@@ -39,7 +45,9 @@ data_message_params = {
     'toDate'  :toDate
 }
 
+logging.info("Calling sensor data")
 r = requests.post(data_message_URL, params=data_message_params, headers=headers, verify=False)
+logging.info(r.status_code)
 data = r.json()
 
 df = pd.DataFrame(data['Result'], index=[0])
