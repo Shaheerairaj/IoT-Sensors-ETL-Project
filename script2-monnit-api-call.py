@@ -43,12 +43,7 @@ for sensorID in range(0, len(data['Result'])):
 fromDate = (datetime.datetime.now() - datetime.timedelta(hours=6)).strftime("%m/%d/%Y %H:00:00")
 toDate   = (datetime.datetime.now() - datetime.timedelta(hours=5)).strftime("%m/%d/%Y %H:00:00")
 
-col_names = ['DataMessageGUID','SensorID','MessageData','State','SignalStrength','Voltage','Battery',
-'Data','DisplayData','PlotValue','MetNotificationRequirements','GatewayID','DataValues','DataTypes',
-'PlotValues','PlotLabels']
-
 df = pd.DataFrame()
-sensor_list = sensor_list[:5]    # Limiter for testing
 
 try:
 
