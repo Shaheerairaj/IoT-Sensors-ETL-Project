@@ -52,7 +52,7 @@ sensor_list = sensor_list[:5]    # Limiter for testing
 
 try:
 
-    for i in sensor_list:
+    for i in range(0,len(sensor_list)):
 
         data_message_params = {
             'sensorID':sensor_list[i],
@@ -65,16 +65,17 @@ try:
         logging.info(r.status_code)
         data = r.json()
 
-        df_r = pd.DataFrame(data['Result'], index=[0])
-        df_r['Sensor Name'] = sensor_name[i]
-        df_r['MessageDate'] = int(df_r['MessageDate'].str[6:-2]) / 1000
-        df_r['MessageDate'] = (datetime.datetime.fromtimestamp(df_r['MessageDate'])).strftime("%Y-%m-%d %H:%M:%S")
+        index_range = list(range(0,len(data['Result'])))
 
-        df.append(df_r)
+        df_r = pd.DataFrame(data['Result'], index=index_range)
+        df_r['Sensor Name'] = sensor_name[i]
+
+        df = df.append(df_r)
 
 except:
     logging.info(f"Ran into error while calling data messages at {sensor_name[i]}")
 
 
-
-print(df.head())
+df.reset_index(inplace=True, drop=True)
+df['MessageDate'] = df['MessageDate'].str[6:-2]
+df['Timestamp'] = df['MessageDate'].apply(lambda x: datetime.datetime.fromtimestamp(int(x)/1000).strftime("%Y-%m-%d %H:%M:%S"))
