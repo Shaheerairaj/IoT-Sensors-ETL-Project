@@ -16,11 +16,14 @@ headers = {
     'APISecretKey': 'rAOioqNQvnkmISoMDJ1FjjIvS282AYwz'
 }
 
+try:
+    logging.info("Calling sensor list API")
+    r = requests.post(sensor_list_URL, headers=headers, verify=False)
+    logging.info(r.status_code)
+    data = r.json()
 
-logging.info("Calling sensor list API")
-r = requests.post(sensor_list_URL, headers=headers, verify=False)
-logging.info(r.status_code)
-data = r.json()
+except:
+    logging.info("Ran into error when calling sensor list end point")
 
 
 
@@ -36,27 +39,42 @@ for sensorID in range(0, len(data['Result'])):
 
 
 
+
 fromDate = (datetime.datetime.now() - datetime.timedelta(hours=6)).strftime("%m/%d/%Y %H:00:00")
 toDate   = (datetime.datetime.now() - datetime.timedelta(hours=5)).strftime("%m/%d/%Y %H:00:00")
 
-data_message_params = {
-    'sensorID':sensor_list[0],
-    'fromDate':fromDate,
-    'toDate'  :toDate
-}
+col_names = ['DataMessageGUID','SensorID','MessageData','State','SignalStrength','Voltage','Battery',
+'Data','DisplayData','PlotValue','MetNotificationRequirements','GatewayID','DataValues','DataTypes',
+'PlotValues','PlotLabels']
 
-logging.info("Calling sensor data")
-r = requests.post(data_message_URL, params=data_message_params, headers=headers, verify=False)
-logging.info(r.status_code)
-data = r.json()
+df = pd.DataFrame()
+sensor_list = sensor_list[:5]    # Limiter for testing
 
-df = pd.DataFrame(data['Result'], index=[0])
-df['MessageDate'] = int(df['MessageDate'].str[6:-2]) / 1000
-df['MessageDate'] = (datetime.datetime.fromtimestamp(df['MessageDate'])).strftime("%Y-%m-%d %H:%M:%S")
+try:
 
-print(df.columns)
+    for i in sensor_list:
 
-# Complete logging
-# Add sensor name to df
-# Exception handling when calling API
-# For loop to call data for all sensors
+        data_message_params = {
+            'sensorID':sensor_list[i],
+            'fromDate':fromDate,
+            'toDate'  :toDate
+        }
+
+        logging.info("Calling sensor data")
+        r = requests.post(data_message_URL, params=data_message_params, headers=headers, verify=False)
+        logging.info(r.status_code)
+        data = r.json()
+
+        df_r = pd.DataFrame(data['Result'], index=[0])
+        df_r['Sensor Name'] = sensor_name[i]
+        df_r['MessageDate'] = int(df_r['MessageDate'].str[6:-2]) / 1000
+        df_r['MessageDate'] = (datetime.datetime.fromtimestamp(df_r['MessageDate'])).strftime("%Y-%m-%d %H:%M:%S")
+
+        df.append(df_r)
+
+except:
+    logging.info(f"Ran into error while calling data messages at {sensor_name[i]}")
+
+
+
+print(df.head())
