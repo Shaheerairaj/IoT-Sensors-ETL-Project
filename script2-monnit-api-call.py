@@ -2,6 +2,8 @@ import pandas as pd
 import requests
 import datetime
 import logging
+import warnings
+warnings.filterwarnings("ignore")
 
 logging.basicConfig(filename='script2-monnit-api-call.log', level=logging.INFO,
 format='%(asctime)s:%(levelname)s:%(message)s')
