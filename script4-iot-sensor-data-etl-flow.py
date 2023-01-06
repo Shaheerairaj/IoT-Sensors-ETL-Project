@@ -1,4 +1,5 @@
 import pandas as pd
+import numpy as np
 import mysql.connector
 import requests
 import datetime
@@ -20,7 +21,7 @@ headers = {
 }
 
 try:
-    logging.info("Calling sensor list API")
+    logging.info("##############################################################\nCalling sensor list API")
     r = requests.post(sensor_list_URL, headers=headers, verify=False)
     logging.info(r.status_code)
     data = r.json()
@@ -87,10 +88,11 @@ df['MessageDate'] = df['MessageDate'].astype(float)
 new = df['SensorType'].str.split(' - ', expand=True)
 df['SensorType'] = new[0]
 
+df.replace('', np.nan, inplace=True)     # Making sure there are no empty strings
 
 
-
-
+df.to_csv("Sensor data.csv",index=False)
+df = df[df['SensorType'] == 'Temperature']
 
 
 
@@ -125,22 +127,25 @@ mycursor = db.cursor()
 cols = "`,`".join([str(i) for i in df.columns.tolist()])
 
 # Filtering df fr sensor type
-logging.info("Ïnserting data to database")
+logging.info("Inserting data to database")
 for sensorType in df['SensorType'].unique():
 
     df_filtered = df[df['SensorType'] == sensorType]
-    dataMessage = df_filtered['DataMessageGUID']
 
     try:
         # Inserting DataFrame records
         for i, row in df_filtered.iterrows():
+            row=tuple(row)
             sql = "INSERT INTO `"+ sensor_tables[sensorType] + "` (`" + cols +"`) VALUES (" + "%s,"*(len(row)-1) + "%s)"
-            mycursor.execute(sql, tuple(row))
+            mycursor.execute(sql, row)
 
             db.commit()
 
     except:
-        logging.warning(f"Error faced for table {sensor_tables[sensorType]} for data message: {dataMessage}")
+        logging.error(f"Error faced for table <{sensor_tables[sensorType]}> for sensor: {row[1]} data message: {row[0]}")
+        logging.exception("message")
+
+
 
 db.close()
 
