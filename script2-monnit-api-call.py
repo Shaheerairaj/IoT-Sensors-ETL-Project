@@ -65,7 +65,7 @@ try:
         index_range = list(range(0,len(data['Result'])))
 
         df_r = pd.DataFrame(data['Result'], index=index_range)
-        df_r['SensorName'] = sensor_name[i]
+        df_r['SensorType'] = sensor_name[i]
 
         df = df.append(df_r)
 
@@ -74,15 +74,24 @@ except:
     logging.info(r.status_code)
 
 
+
+# Final Transformations
 df.reset_index(inplace=True, drop=True)
 df['MessageDate'] = df['MessageDate'].str[6:-2]
 df['DateTimestamp'] = df['MessageDate'].apply(lambda x: datetime.datetime.fromtimestamp(int(x)/1000).strftime("%Y-%m-%d %H:%M:%S"))
 
-scriptEndTime = datetime.datetime.now()
-scriptRunningTime = scriptEndTime - scriptStartTime
-
-logging.info(f"Time taken to run script: {scriptRunningTime}")
-
 df.rename(columns={'Data':'RawData'}, inplace=True)
 df['MessageDate'] = df['MessageDate'].astype(float)
+
+new = df['SensorType'].str.split(' - ', expand=True)
+df['SensorType'] = new[0]
+
+
+
+
+scriptEndTime = datetime.datetime.now()
+scriptRunningTime = scriptEndTime - scriptStartTime
+logging.info(f"Time taken to run script: {scriptRunningTime}")
+
+
 df.to_excel('Sensor data.xlsx', index=False)
