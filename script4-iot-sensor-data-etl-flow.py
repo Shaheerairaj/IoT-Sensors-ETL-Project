@@ -6,8 +6,8 @@ import logging
 import warnings
 warnings.filterwarnings("ignore")
 
-# logging.basicConfig(filename='etl.log', level=logging.INFO,
-# format='%(asctime)s:%(levelname)s:%(message)s')
+logging.basicConfig(filename='etl.log', level=logging.INFO,
+format='%(asctime)s:%(levelname)s:%(message)s')
 
 scriptStartTime = datetime.datetime.now()
 
