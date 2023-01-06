@@ -65,7 +65,7 @@ try:
         index_range = list(range(0,len(data['Result'])))
 
         df_r = pd.DataFrame(data['Result'], index=index_range)
-        df_r['Sensor Name'] = sensor_name[i]
+        df_r['SensorName'] = sensor_name[i]
 
         df = df.append(df_r)
 
@@ -83,5 +83,6 @@ scriptRunningTime = scriptEndTime - scriptStartTime
 
 logging.info(f"Time taken to run script: {scriptRunningTime}")
 
-df.rename(columns={'Data':'RawData','Timestamp':'Time_stamp'})
+df.rename(columns={'Data':'RawData','Timestamp':'Time_stamp'}, inplace=True)
+df['MessageDate'] = df['MessageDate'].astype(float)
 df.to_excel('Sensor data.xlsx', index=False)

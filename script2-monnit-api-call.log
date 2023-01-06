@@ -622,3 +622,23 @@ Calling sensor list API
 2023-01-06 13:54:41,383:INFO:200
 2023-01-06 13:54:41,383:INFO:Calling sensor data for all sensors
 2023-01-06 13:55:55,115:INFO:Time taken to run script: 0:01:15.560615
+2023-01-06 14:26:47,526:INFO:Calling sensor list API
+2023-01-06 14:26:49,104:INFO:200
+2023-01-06 14:26:49,104:INFO:Calling sensor data for all sensors
+2023-01-06 14:28:03,849:INFO:Time taken to run script: 0:01:16.322178
+2023-01-06 14:30:37,043:INFO:Calling sensor list API
+2023-01-06 14:30:38,340:INFO:200
+2023-01-06 14:30:38,347:INFO:Calling sensor data for all sensors
+2023-01-06 14:31:53,518:INFO:Time taken to run script: 0:01:16.474877
+2023-01-06 14:33:55,631:INFO:Calling sensor list API
+2023-01-06 14:33:56,928:INFO:200
+2023-01-06 14:33:56,928:INFO:Calling sensor data for all sensors
+2023-01-06 14:35:10,569:INFO:Time taken to run script: 0:01:14.937777
+2023-01-06 14:54:03,171:INFO:Calling sensor list API
+2023-01-06 14:54:04,999:INFO:200
+2023-01-06 14:54:04,999:INFO:Calling sensor data for all sensors
+2023-01-06 14:55:18,837:INFO:Time taken to run script: 0:01:15.666537
+2023-01-06 14:55:45,348:INFO:Calling sensor list API
+2023-01-06 14:55:46,895:INFO:200
+2023-01-06 14:55:46,895:INFO:Calling sensor data for all sensors
+2023-01-06 14:57:00,321:INFO:Time taken to run script: 0:01:14.973521
