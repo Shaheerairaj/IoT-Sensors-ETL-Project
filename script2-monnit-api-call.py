@@ -76,13 +76,13 @@ except:
 
 df.reset_index(inplace=True, drop=True)
 df['MessageDate'] = df['MessageDate'].str[6:-2]
-df['Timestamp'] = df['MessageDate'].apply(lambda x: datetime.datetime.fromtimestamp(int(x)/1000).strftime("%Y-%m-%d %H:%M:%S"))
+df['DateTimestamp'] = df['MessageDate'].apply(lambda x: datetime.datetime.fromtimestamp(int(x)/1000).strftime("%Y-%m-%d %H:%M:%S"))
 
 scriptEndTime = datetime.datetime.now()
 scriptRunningTime = scriptEndTime - scriptStartTime
 
 logging.info(f"Time taken to run script: {scriptRunningTime}")
 
-df.rename(columns={'Data':'RawData','Timestamp':'Time_stamp'}, inplace=True)
+df.rename(columns={'Data':'RawData'}, inplace=True)
 df['MessageDate'] = df['MessageDate'].astype(float)
 df.to_excel('Sensor data.xlsx', index=False)
