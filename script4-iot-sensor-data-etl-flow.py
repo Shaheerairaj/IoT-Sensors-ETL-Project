@@ -7,7 +7,7 @@ import logging
 import warnings
 warnings.filterwarnings("ignore")
 
-logging.basicConfig(filename='etl.log', level=logging.INFO,
+logging.basicConfig(filename='IoT Sensors ETL log.log', level=logging.INFO,
 format='%(asctime)s:%(levelname)s:%(message)s')
 
 scriptStartTime = datetime.datetime.now()
@@ -90,9 +90,6 @@ df['SensorType'] = new[0]
 
 df.replace('', np.nan, inplace=True)     # Making sure there are no empty strings
 
-
-df.to_csv("Sensor data.csv",index=False)
-df = df[df['SensorType'] == 'Temperature']
 
 
 
