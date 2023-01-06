@@ -83,5 +83,5 @@ scriptRunningTime = scriptEndTime - scriptStartTime
 
 logging.info(f"Time taken to run script: {scriptRunningTime}")
 
-print(df['SensorName'].unique())
-# df.to_excel('Sensor data.xlsx', index=False)
+df.rename(columns={'Data':'RawData','Timestamp':'Time_stamp'})
+df.to_excel('Sensor data.xlsx', index=False)
