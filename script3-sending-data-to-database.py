@@ -2,14 +2,15 @@ import mysql.connector
 import pandas as pd
 
 df = pd.read_excel('Sensor data.xlsx')
-df = df.iloc[0:5]
+df = df.iloc[0:5]                       # Limiter for testing
 
 # Connect to MySQL server and run a query (create a test database)
 
 db = mysql.connector.connect(
     host='localhost',
     user='root',
-    passwd='QwertyLayout'
+    passwd='QwertyLayout',
+    db='monnit_iot_sensors'
 )
 
 mycursor = db.cursor()
