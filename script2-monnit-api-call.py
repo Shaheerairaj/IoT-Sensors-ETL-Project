@@ -78,7 +78,7 @@ except:
 # Final Transformations
 df.reset_index(inplace=True, drop=True)
 df['MessageDate'] = df['MessageDate'].str[6:-2]
-df['DateTimeStamp'] = df['MessageDate'].apply(lambda x: datetime.datetime.fromtimestamp(int(x)/1000).strftime("%Y-%m-%d %H:%M:%S"))
+df['DataTimeStamp'] = df['MessageDate'].apply(lambda x: datetime.datetime.fromtimestamp(int(x)/1000).strftime("%Y-%m-%d %H:%M:%S"))
 
 df.rename(columns={'Data':'RawData'}, inplace=True)
 df['MessageDate'] = df['MessageDate'].astype(float)

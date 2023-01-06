@@ -1,0 +1,46 @@
+2023-01-06 20:30:05,434:INFO:##############################################################
+Calling sensor list API
+2023-01-06 20:30:07,205:INFO:200
+2023-01-06 20:30:07,205:INFO:Calling sensor data for all sensors
+2023-01-06 20:31:23,119:INFO:Connecting to database
+2023-01-06 20:31:23,244:INFO:package: mysql.connector.plugins
+2023-01-06 20:31:23,244:INFO:plugin_name: caching_sha2_password
+2023-01-06 20:31:23,244:INFO:AUTHENTICATION_PLUGIN_CLASS: MySQLCachingSHA2PasswordAuthPlugin
+2023-01-06 20:31:23,244:INFO:Inserting data to database
+2023-01-06 20:31:23,275:ERROR:Error faced for table <co> for sensor: 529932.0 data message: 34ed7866-baed-4b37-b5a4-7f83204c1075
+2023-01-06 20:31:23,275:ERROR:message
+Traceback (most recent call last):
+  File "script4-iot-sensor-data-etl-flow.py", line 137, in <module>
+    mycursor.execute(sql, row)
+  File "C:\Users\shahe\AppData\Roaming\Python\Python38\site-packages\mysql\connector\cursor.py", line 564, in execute
+    self._handle_result(self._connection.cmd_query(stmt))
+  File "C:\Users\shahe\AppData\Roaming\Python\Python38\site-packages\mysql\connector\connection.py", line 990, in cmd_query
+    result = self._handle_result(self._send_cmd(ServerCmd.QUERY, query))
+  File "C:\Users\shahe\AppData\Roaming\Python\Python38\site-packages\mysql\connector\connection.py", line 784, in _handle_result
+    raise get_exception(packet)
+mysql.connector.errors.IntegrityError: 1062 (23000): Duplicate entry '34ed7866-baed-4b37-b5a4-7f83204c1075' for key 'co.PRIMARY'
+2023-01-06 20:31:23,306:ERROR:Error faced for table <co2> for sensor: 707915.0 data message: c6c44d4c-8951-4041-86a0-45eccbf42e80
+2023-01-06 20:31:23,306:ERROR:message
+Traceback (most recent call last):
+  File "script4-iot-sensor-data-etl-flow.py", line 137, in <module>
+    mycursor.execute(sql, row)
+  File "C:\Users\shahe\AppData\Roaming\Python\Python38\site-packages\mysql\connector\cursor.py", line 564, in execute
+    self._handle_result(self._connection.cmd_query(stmt))
+  File "C:\Users\shahe\AppData\Roaming\Python\Python38\site-packages\mysql\connector\connection.py", line 990, in cmd_query
+    result = self._handle_result(self._send_cmd(ServerCmd.QUERY, query))
+  File "C:\Users\shahe\AppData\Roaming\Python\Python38\site-packages\mysql\connector\connection.py", line 784, in _handle_result
+    raise get_exception(packet)
+mysql.connector.errors.IntegrityError: 1062 (23000): Duplicate entry 'c6c44d4c-8951-4041-86a0-45eccbf42e80' for key 'co2.PRIMARY'
+2023-01-06 20:31:23,322:ERROR:Error faced for table <diff_press> for sensor: 707964.0 data message: 33b69e6e-a0cb-43f0-8222-ae8a18e26dfe
+2023-01-06 20:31:23,322:ERROR:message
+Traceback (most recent call last):
+  File "script4-iot-sensor-data-etl-flow.py", line 137, in <module>
+    mycursor.execute(sql, row)
+  File "C:\Users\shahe\AppData\Roaming\Python\Python38\site-packages\mysql\connector\cursor.py", line 564, in execute
+    self._handle_result(self._connection.cmd_query(stmt))
+  File "C:\Users\shahe\AppData\Roaming\Python\Python38\site-packages\mysql\connector\connection.py", line 990, in cmd_query
+    result = self._handle_result(self._send_cmd(ServerCmd.QUERY, query))
+  File "C:\Users\shahe\AppData\Roaming\Python\Python38\site-packages\mysql\connector\connection.py", line 784, in _handle_result
+    raise get_exception(packet)
+mysql.connector.errors.IntegrityError: 1062 (23000): Duplicate entry '33b69e6e-a0cb-43f0-8222-ae8a18e26dfe' for key 'diff_press.PRIMARY'
+2023-01-06 20:31:23,369:INFO:Time taken to run script: 0:01:17.934359
