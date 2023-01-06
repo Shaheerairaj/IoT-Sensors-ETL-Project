@@ -6,13 +6,13 @@ df = pd.read_excel('Sensor data.xlsx')
 
 sensor_tables = {
     'Advanced Vibration':'vibration',
-    'Air Speed':'air_speed',
+    'AirSpeed':'air_speed',
     'Air Quality':'air_quality',
     'CO2 Meter':'co2',
     'Differential Pressure':'differential_pressure',
     'Duct Temperature':'duct_temp',
     'Humidity':'humidity',
-    'Light Sensor':'light',
+    'LightSensor':'light',
     'PIR ALTA':'motion',
     'Quad Temperature':'quad_temp',
     'Temperature':'temp'
