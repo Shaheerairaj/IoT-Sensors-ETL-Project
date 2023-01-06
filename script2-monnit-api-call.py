@@ -8,7 +8,7 @@ warnings.filterwarnings("ignore")
 logging.basicConfig(filename='script2-monnit-api-call.log', level=logging.INFO,
 format='%(asctime)s:%(levelname)s:%(message)s')
 
-
+scriptStartTime = datetime.datetime.now()
 
 sensor_list_URL = 'https://www.imonnit.com/json/SensorList'
 data_message_URL= 'https://www.imonnit.com/json/SensorDataMessages'
@@ -47,6 +47,8 @@ toDate   = (datetime.datetime.now() - datetime.timedelta(hours=5)).strftime("%m/
 
 df = pd.DataFrame()
 
+logging.info("Calling sensor data for all sensors")
+
 try:
 
     for i in range(0,len(sensor_list)):
@@ -57,9 +59,7 @@ try:
             'toDate'  :toDate
         }
 
-        logging.info("Calling sensor data")
         r = requests.post(data_message_URL, params=data_message_params, headers=headers, verify=False)
-        logging.info(r.status_code)
         data = r.json()
 
         index_range = list(range(0,len(data['Result'])))
@@ -71,8 +71,17 @@ try:
 
 except:
     logging.info(f"Ran into error while calling data messages at {sensor_name[i]}")
+    logging.info(r.status_code)
 
 
 df.reset_index(inplace=True, drop=True)
 df['MessageDate'] = df['MessageDate'].str[6:-2]
 df['Timestamp'] = df['MessageDate'].apply(lambda x: datetime.datetime.fromtimestamp(int(x)/1000).strftime("%Y-%m-%d %H:%M:%S"))
+
+scriptEndTime = datetime.datetime.now()
+scriptRunningTime = scriptEndTime - scriptStartTime
+
+logging.info(f"Time taken to run script: {scriptRunningTime}")
+
+print(df['SensorName'].unique())
+# df.to_excel('Sensor data.xlsx', index=False)
