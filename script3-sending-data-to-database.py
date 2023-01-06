@@ -23,6 +23,6 @@ for i, row in df.iterrows():
     sql = "INSERT INTO `vibration_sensor` (`" + cols +"`) VALUES (" + "%s,"*(len(row)-1) + "%s)"
     mycursor.execute(sql, tuple(row))
 
-    connection.commit()
+    db.commit()
 
-connection.close()
+db.close()
