@@ -1,7 +1,7 @@
 # IoT-Sensors-ETL-Project #
 ## Objective ##
-i. Build an ETL pipeline using live IoT data\n
-ii. Understand CRON jobs\n
+i. Build an ETL pipeline using live IoT data
+ii. Understand CRON jobs
 iii. Understand building relational databases and tables
 iv. Understand basics of querying and inserting data into relational tables
 
